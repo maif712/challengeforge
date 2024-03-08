@@ -12,7 +12,7 @@ export default function Footer() {
                     </span> by
                         <span className="uppercase bg-clr-secondry text-white px-3 py-1 rounded-[4px] tracking-widest dark:text-[#313131] dark:bg-dark-text-secondry">maif</span>, © 2024</p>
                     <div className="flex justify-center pt-5 border-t border-t-dark-text-secondry dark:border-t-border-primary md:justify-start">
-                        <a href="#" className={`uppercase font-bold text-[#292929] tracking-wide border-2 py-2 px-3 rounded-full transition-color dark:text-dark-text-secondry dark:border-border-secondry`}>challenge tracker</a>
+                        <a href={`${import.meta.env.VITE_BASE_URL}`} className={`uppercase font-bold text-[#292929] tracking-wide border-2 py-2 px-3 rounded-full transition-color dark:text-dark-text-secondry dark:border-border-secondry`}>challenge tracker</a>
                     </div>
                 </div>
             </div>
