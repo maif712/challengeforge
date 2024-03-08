@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    body {
+        @apply dark:bg-dark
+    }
+
+    #root {
+        @apply flex flex-col h-screen
+    }
+
+    .layout-wrapper {
+        @apply mx-auto max-w-[1440px] px-4
+    }
+
+    .day-card:hover {
+        @apply !border-[#00bbd4] bg-[#00bbd423]
+    }
+
+    .day-card.active::after {
+        @apply absolute top-0 right-0 h-full w-20 bg-cyan-300 text-slate-800 content-['TODAY'] flex justify-center items-center font-bold tracking-wider
+    }
+
+    .missed-day {
+        @apply bg-red-200/35 border-red-600 dark:bg-[#461e25] dark:!border-[#ff707f]
+    }
+    
+    .missed-day input {
+        @apply outline-red-400 dark:outline-[#ff707f]
+    }
+    
+    .missed-day label {
+        @apply dark:text-white
+    }
+
+}
+
+.active-error {
+    animation: ping 1s ease-in-out infinite;
+}
+
+@keyframes ping {
+    0% {
+        @apply border-red-300 bg-red-100/25
+    }
+    100% {
+        @apply border-red-600 
+    }
+}
+
+.hero__title {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.hero__para {
+    opacity: 0;
+    animation: fadeIn 1.1s ease-in-out 500ms forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        @apply translate-y-0 opacity-100
+    }
+}
+
+
+.gelatine {
+    animation: gelatine 0.7s forwards;
+}
+
+@keyframes gelatine {
+    from, to { transform: scale(1, 1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
+}
+
+
