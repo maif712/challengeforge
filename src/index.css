@@ -80,4 +80,15 @@
     75% { transform: scale(0.95, 1.05); }
 }
 
+@media (hover:hover) {
+
+    .go-top-btn:hover{
+        @apply !-translate-y-2
+    }
+
+    .go-top-btn:hover .arrow-up-icon {
+        @apply -translate-y-1
+    }
+}
+
 
