@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useFilter from "./hooks/useFilter";
 import useDarkTheme from "./hooks/useDarkThem";
 import useSticky from "./hooks/useSticky";
+import useGoTopBtn from "./hooks/useGoTopBtn";
 
 
 const AppContext = createContext(null)
@@ -60,6 +61,10 @@ export function AppContextProvider({ children }) {
     // Sticky custom hook
     const {isSticky} = useSticky()
     // End
+
+    // Go top button custom hook 
+    const {isShowBtn, handleScrollToTopClick} = useGoTopBtn()
+    // 
 
     useEffect(() => {
         localStorage.setItem("DAYS", JSON.stringify(Days))
@@ -140,6 +145,10 @@ export function AppContextProvider({ children }) {
 
         // Sticky header
         isSticky,
+
+        // Go Top Button
+        isShowBtn,
+        handleScrollToTopClick
     }
 
     return (

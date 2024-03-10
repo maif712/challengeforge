@@ -9,7 +9,7 @@
     }
 
     #root {
-        @apply flex flex-col h-screen
+        @apply flex flex-col h-screen relative
     }
 
     .layout-wrapper {
