@@ -17,7 +17,10 @@ export default {
         'hero-title' : "#ced7dc",
         'background-secondry' : "#f9f9fb",
         'clr-secondry' : "#4e4e4e"
-      }
+      },
+      screens: {
+        'betterhover': {'raw': '(hover: hover)'},
+    }
     },
   },
   plugins: [],

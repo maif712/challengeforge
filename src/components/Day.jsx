@@ -21,9 +21,9 @@ export default function Day({ id, title, date, isCompleted, handleIsCompleted, n
 
 
     return (
-        <div className={`day-card group relative border-2 border-dashed shadow-md p-4 transition dark:border-border-secondry ${!isCompleted && getMissedDay() ? "missed-day" : ""} ${isCompleted ? "bg-[#00bbd423] !border-[#00bbd4]" : ""} ${getToday() ? "active" : ""}`}>
+        <div className={`day-card group relative border-2 border-dashed shadow-md p-4 transition betterhover:hover:!border-[#00bbd4] betterhover:hover:bg-[#00bbd423] dark:border-border-secondry ${!isCompleted && getMissedDay() ? "missed-day" : ""} ${isCompleted ? "bg-[#00bbd423] !border-[#00bbd4]" : ""} ${getToday() ? "active" : ""}`}>
             <div className="flex items-center gap-5 mb-4">
-                <input checked={isCompleted} onChange={() => handleIsCompleted(id)} className="appearance-none rounded-full transition-all w-5 h-5 outline outline-gray-100 outline-offset-[6px] checked:bg-[#00a8f4] checked:outline-[#00a8f4] group-hover:outline-[#00a8f4] dark:outline-border-secondry" type="checkbox" id={title} />
+                <input checked={isCompleted} onChange={() => handleIsCompleted(id)} className="appearance-none rounded-full transition-all w-5 h-5 outline outline-gray-100 outline-offset-[6px] checked:bg-[#00a8f4] checked:outline-[#00a8f4] betterhover:group-hover:outline-[#00a8f4] dark:outline-border-secondry" type="checkbox" id={title} />
                 <label className="uppercase text-lg font-semibold cursor-pointer dark:text-dark-text-secondry" htmlFor={title}>{title}</label>
             </div>
             <p className="flex gap-2 bg-slate-300 font-semibold tracking-wider w-max py-1 px-5 rounded-[4px] text-[#292929] dark:bg-filter-input-dark dark:text-white">

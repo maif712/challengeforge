@@ -16,10 +16,6 @@
         @apply mx-auto max-w-[1440px] px-4
     }
 
-    .day-card:hover {
-        @apply !border-[#00bbd4] bg-[#00bbd423]
-    }
-
     .day-card.active::after {
         @apply absolute top-0 right-0 h-full w-20 bg-cyan-300 text-slate-800 content-['TODAY'] flex justify-center items-center font-bold tracking-wider
     }
