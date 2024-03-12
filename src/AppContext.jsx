@@ -1,44 +1,83 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, createRef, useContext, useEffect, useRef, useState } from "react";
 import useFilter from "./hooks/useFilter";
 import useDarkTheme from "./hooks/useDarkThem";
 import useSticky from "./hooks/useSticky";
 import useGoTopBtn from "./hooks/useGoTopBtn";
+import useExpand from "./hooks/useExpand";
 
 
 const AppContext = createContext(null)
 
 export function AppContextProvider({ children }) {
 
-    const [Days, setDays] = useState(() => {
+
+
+    const [challenges, setChallenges] = useState(() => {
         const localValue = localStorage.getItem("DAYS")
-        if(localValue == null) return []
+        if (localValue == null) return []
 
         return JSON.parse(localStorage.getItem("DAYS"))
     })
+
     const [nowDate, setNowDate] = useState(new Date())
 
     // Modal
     const modalRef = useRef()
     const deleteModalRef = useRef()
+    // const deleteOneChallengeModalRef = useRef(challenges.map(() => createRef()))
+    const [dialogDeleteRefs, setDialogDeleteRefs] = useState([])
+
+    useEffect(() => {
+        setDialogDeleteRefs(challenges.map(() => createRef()))
+    }, [challenges])
 
     const handleOpenModal = () => {
-        if(dayNumber == "") {
-            setFilterErrorState("error")
+
+        if (titleInput == "" && dayNumber == "") {
+            setFilterErrorState({
+                titleIn: "errore",
+                daysIn: "errore"
+            })
             return;
         }
-        setFilterErrorState("")
-        
-        if(Days.length > 0)
-        {
+        else if (titleInput == "") {
+            setFilterErrorState(prev => {
+                return {
+                    ...prev,
+                    titleIn: "errore"
+                }
+            })
+            return;
+        }
+        else if (dayNumber == "") {
+            setFilterErrorState(prev => {
+                return {
+                    ...prev,
+                    daysIn: "errore"
+                }
+            })
+            return;
+        }
+        setFilterErrorState({
+            titleIn: "",
+            daysIn: ""
+        })
+
+        if (challenges.length > 0) {
             modalRef.current.showModal()
         }
         else {
-            handleMakeDays()
+            handleMakeChallenge()
         }
     }
 
     const handleOpenDeleteModal = () => {
         deleteModalRef.current.showModal()
+    }
+
+    const handleOpenDeleteOneChallengeModal = (index) => {
+        // deleteOneChallengeModalRef.current[index].current.showModal()
+        dialogDeleteRefs[index].current.showModal()
     }
     // End
 
@@ -51,28 +90,32 @@ export function AppContextProvider({ children }) {
         handleDayNumberChange,
         filterErrorState,
         setFilterErrorState,
+        titleInput,
+        handleTitleInput
     } = useFilter()
     // End
 
     // Dark theme custom hook
-    const {isDark, handleIsDark} = useDarkTheme()
+    const { isDark, handleIsDark } = useDarkTheme()
     // End
 
     // Sticky custom hook
-    const {isSticky} = useSticky()
+    const { isSticky } = useSticky()
     // End
 
     // Go top button custom hook 
-    const {isShowBtn, handleScrollToTopClick} = useGoTopBtn()
+    const { isShowBtn, handleScrollToTopClick } = useGoTopBtn()
+    // 
+
+    // Expand custom hook
+    const { isExpand, handleIsExpand } = useExpand()
     // 
 
     useEffect(() => {
-        localStorage.setItem("DAYS", JSON.stringify(Days))
-    }, [Days])
+        localStorage.setItem("DAYS", JSON.stringify(challenges))
+    }, [challenges])
 
-
-    function makeNewday(index, currentDate) {
-        // const newDate = new Date(currentDate.getTime() + ((24 * index) * 60 * 60 * 1000)).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "2-digit" })
+    function newDayObject(currentDate, index) {
         const newDate = new Date(currentDate)
         newDate.setDate(newDate.getDate() + index)
         const newDay = {
@@ -81,50 +124,78 @@ export function AppContextProvider({ children }) {
             date: newDate,
             isCompleted: false
         }
-        setDays(prev => [...prev, newDay])
+
+        return newDay
     }
 
-    const handleMakeDays = () => {
-
-        setDays([])
-        const currentDate = new Date()
+    function makeNewday(currentDate) {
+        // const newDate = new Date(currentDate.getTime() + ((24 * index) * 60 * 60 * 1000)).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "2-digit" })
+        const newData = []
         if (startFrom == "today") {
             for (let index = 0; index < dayNumber; index++) {
-                makeNewday(index, currentDate)
+                newData.push(newDayObject(currentDate, index))
             }
         }
         else {
             for (let index = 1; index <= dayNumber; index++) {
-                makeNewday(index, currentDate)
+                newData.push(newDayObject(currentDate, index))
             }
         }
+
+        return newData
+    }
+
+    const handleMakeChallenge = () => {
+        const currentDate = new Date()
+        const newChallenge = {
+            id: crypto.randomUUID(),
+            title: titleInput,
+            challengeDays: makeNewday(currentDate)
+        }
+
+        setChallenges(prev => [newChallenge, ...prev])
     }
 
     const handleResetDays = () => {
-        setDays([])
+        setChallenges([])
     }
 
-    const handleIsCompleted = (id) => {
-        const newArray = Days.map(day => {
-            if (day.id == id) {
-                return { ...day, isCompleted: !day.isCompleted }
+    const handleDeleteChallenge = (id) => {
+        const newArray = challenges.filter(challenge => challenge.id != id)
+        setChallenges(newArray)
+    }
+
+    const handleIsCompleted = (challengeId, dayId) => {
+        const newArray = challenges.map(challenge => {
+            if (challenge.id == challengeId) {
+                return {
+                    ...challenge,
+                    challengeDays: challenge.challengeDays.map(day => {
+                        if (day.id == dayId) {
+                            return { ...day, isCompleted: !day.isCompleted }
+                        }
+                        else {
+                            return day
+                        }
+                    })
+                }
             }
             else {
-                return day
+                return challenge
             }
         })
 
-        setDays(newArray)
+        setChallenges(newArray)
     }
 
 
-
     const values = {
-        Days,
-        handleMakeDays,
+        challenges,
         nowDate,
         handleIsCompleted,
         handleResetDays,
+        handleMakeChallenge,
+        handleDeleteChallenge,
 
         // Filter
         startFrom,
@@ -132,6 +203,8 @@ export function AppContextProvider({ children }) {
         dayNumber,
         handleDayNumberChange,
         filterErrorState,
+        titleInput,
+        handleTitleInput,
 
         // Dark Theme
         isDark,
@@ -142,13 +215,19 @@ export function AppContextProvider({ children }) {
         handleOpenModal,
         deleteModalRef,
         handleOpenDeleteModal,
+        handleOpenDeleteOneChallengeModal,
+        dialogDeleteRefs,
 
         // Sticky header
         isSticky,
 
         // Go Top Button
         isShowBtn,
-        handleScrollToTopClick
+        handleScrollToTopClick,
+
+        // Expand
+        isExpand,
+        handleIsExpand
     }
 
     return (

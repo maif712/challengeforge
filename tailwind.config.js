@@ -16,7 +16,8 @@ export default {
         'modal-bg-dark': "#222222",
         'hero-title' : "#ced7dc",
         'background-secondry' : "#f9f9fb",
-        'clr-secondry' : "#4e4e4e"
+        'clr-secondry' : "#4e4e4e",
+        'chagllenge-bg-dark' : "#1d2227"
       },
       screens: {
         'betterhover': {'raw': '(hover: hover)'},

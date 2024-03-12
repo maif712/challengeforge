@@ -3,9 +3,18 @@ import { useEffect, useRef, useState } from "react"
 
 export default function useFilter() {
 
+    const [titleInput, setTitleInput] = useState("")
     const [startFrom, setStartFrom] = useState("today")
     const [dayNumber, setDayNumber] = useState("")
-    const [filterErrorState, setFilterErrorState] = useState("")
+    const [filterErrorState, setFilterErrorState] = useState({
+        titleIn: "",
+        daysIn: ""
+    })
+    
+
+    const handleTitleInput = (e) => {
+        setTitleInput(e.target.value)
+    }
 
     const handleStartDayChange = (e) => {
         setStartFrom(e.target.value)
@@ -24,5 +33,7 @@ export default function useFilter() {
         handleDayNumberChange,
         filterErrorState,
         setFilterErrorState, 
+        titleInput, 
+        handleTitleInput
     }
 }

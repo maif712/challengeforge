@@ -8,7 +8,7 @@ export default function Header() {
 
     
     return (
-        <header className={`py-6 transition-all duration-[400ms] fixed w-full top-0 left-0 bg-transparent z-10 ${isSticky ? "!bg-white/70 shadow-md backdrop-blur  dark:!bg-dark/80" : ""}`}>
+        <header className={`py-6 transition-all duration-[400ms] fixed w-full top-0 left-0 bg-transparent z-50 ${isSticky ? "!bg-white/70 shadow-md backdrop-blur  dark:!bg-dark/80" : ""}`}>
             <div className="layout-wrapper">
                 <div className="flex justify-between items-center">
                     <div>

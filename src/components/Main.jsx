@@ -1,8 +1,8 @@
 import CreateBtn from "./CreateBtn";
-import DaysList from "./DaysList";
 import DeleteModal from "./DeleteModal";
 import ResetBtn from "./ResetBtn";
 import CreateModal from "./CreateModal";
+import ChallengesList from "./ChallengesList";
 
 
 export default function Main() {
@@ -15,7 +15,7 @@ export default function Main() {
                     <CreateModal />
                     <DeleteModal />
                 </div>
-                <DaysList />
+                <ChallengesList />
             </div>
         </main>
     )

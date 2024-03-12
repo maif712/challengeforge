@@ -2,14 +2,14 @@ import { useAppContext } from "../AppContext"
 import Day from "./Day"
 
 
-export default function DaysList() {
+export default function DaysList({challengeDays, challengeId}) {
 
-    const {Days, handleIsCompleted, nowDate} = useAppContext()
+    const { handleIsCompleted, nowDate } = useAppContext()
     return (
-        <div className="grid gap-5 mt-5 mb-20 md:grid-cols-3">
-            {Days.map(day => {
+        <div className="grid gap-5 md:grid-cols-2">
+            {challengeDays?.map(day => {
                 return (
-                    <Day key={day.id} {...day} handleIsCompleted={handleIsCompleted} nowDate={nowDate} />
+                    <Day key={day.id} {...day} challengeId={challengeId} handleIsCompleted={handleIsCompleted} nowDate={nowDate} />
                 )
             })}
         </div>
