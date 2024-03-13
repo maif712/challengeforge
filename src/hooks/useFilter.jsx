@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function useFilter() {
@@ -10,6 +10,7 @@ export default function useFilter() {
         titleIn: "",
         daysIn: ""
     })
+
     
 
     const handleTitleInput = (e) => {
@@ -25,15 +26,15 @@ export default function useFilter() {
         // setDayNumber(e.target.value.slice(0, limit))
         setDayNumber(e.target.value)
     }
-    
+
     return {
-        startFrom, 
+        startFrom,
         handleStartDayChange,
         dayNumber,
         handleDayNumberChange,
         filterErrorState,
-        setFilterErrorState, 
-        titleInput, 
-        handleTitleInput
+        setFilterErrorState,
+        titleInput,
+        handleTitleInput,
     }
 }

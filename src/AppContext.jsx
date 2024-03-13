@@ -81,6 +81,20 @@ export function AppContextProvider({ children }) {
     }
     // End
 
+    // Choose your challenge
+    const [challengesTitle, setChallengesTitle] = useState([])
+    const [challengesListInput, setChallengesListInput] = useState(challenges[0]?.title || "")
+
+    const handleChallengesListInput = (e) => {
+        setChallengesListInput(e.target.value)
+    }
+
+    useEffect(() => {
+        const newArray = challenges.map(challenge => challenge.title)
+        setChallengesTitle(newArray)
+    }, [challenges])
+    // End
+
 
     // Filter Custom hook 
     const {
@@ -91,7 +105,7 @@ export function AppContextProvider({ children }) {
         filterErrorState,
         setFilterErrorState,
         titleInput,
-        handleTitleInput
+        handleTitleInput,
     } = useFilter()
     // End
 
@@ -154,6 +168,9 @@ export function AppContextProvider({ children }) {
         }
 
         setChallenges(prev => [newChallenge, ...prev])
+
+        // we add this line the set select input to the last challenge we add
+        setChallengesListInput(titleInput)
     }
 
     const handleResetDays = () => {
@@ -196,6 +213,10 @@ export function AppContextProvider({ children }) {
         handleResetDays,
         handleMakeChallenge,
         handleDeleteChallenge,
+
+        challengesTitle,
+        challengesListInput,
+        handleChallengesListInput,
 
         // Filter
         startFrom,

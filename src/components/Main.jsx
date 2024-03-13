@@ -3,6 +3,7 @@ import DeleteModal from "./DeleteModal";
 import ResetBtn from "./ResetBtn";
 import CreateModal from "./CreateModal";
 import ChallengesList from "./ChallengesList";
+import ChallengeTitleList from "./ChallengeTitleList";
 
 
 export default function Main() {
@@ -15,6 +16,7 @@ export default function Main() {
                     <CreateModal />
                     <DeleteModal />
                 </div>
+                <ChallengeTitleList />
                 <ChallengesList />
             </div>
         </main>
