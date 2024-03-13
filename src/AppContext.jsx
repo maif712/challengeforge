@@ -180,6 +180,7 @@ export function AppContextProvider({ children }) {
     const handleDeleteChallenge = (id) => {
         const newArray = challenges.filter(challenge => challenge.id != id)
         setChallenges(newArray)
+        challengesListInput == "all" ? setChallengesListInput("all") : setChallengesListInput(newArray[0]?.title)
     }
 
     const handleIsCompleted = (challengeId, dayId) => {
