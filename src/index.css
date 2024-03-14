@@ -48,6 +48,10 @@
         @apply absolute content-[attr(aria-valuenow)_"%"] bg-white inset-2 rounded-full grid place-items-center font-mono text-2xl font-semibold shadow-inner dark:bg-[#1d1d1d] dark:text-dark-text-secondry
     }
 
+    .progress[aria-valuenow="100"]::after {
+        @apply content-[url("../public/assets/images/checkMark-icon.svg")] bg-[#85cb95] block
+    }
+
 }
 
 .active-error {

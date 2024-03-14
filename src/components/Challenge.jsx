@@ -24,9 +24,10 @@ export default function Challenge({index, id, title, challengeDays, handleOpenDe
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                         </svg>
                     </button>
-                    <div className="absolute bg-[#333945] rounded-sm text-white shadow-sm z-10 right-0 top-8 py-3 flex flex-col justify-start gap-3 invisible opacity-0 transition-all duration-300 aria-expanded:opacity-100 aria-expanded:visible" aria-expanded={`${isExpand ? "true" : "false"}`}>
+                    <div className="absolute bg-[#333945] rounded-sm text-white shadow-sm z-10 right-0 top-full translate-y-6 invisible opacity-0 py-3 flex flex-col justify-start gap-3  transition-all duration-300 aria-expanded:translate-y-2 aria-expanded:opacity-100 aria-expanded:visible" aria-expanded={`${isExpand ? "true" : "false"}`}>
                         <button onClick={() => handleOpenDeleteOneChallengeModal(index)} className="px-10 py-2 text-lef">Delete</button>
                         <button className="px-10 py-2 text-lef">Edit</button>
+                        <div className="absolute w-2 aspect-square bg-[#333945] right-2 -top-1 rotate-45"></div>
                     </div>
                 </div>
             </div>

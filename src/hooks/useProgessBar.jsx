@@ -5,13 +5,9 @@ export default function useProgressBar(challengeDays) {
     let progressBarValueNow = 0
 
     const daysLength = 100 / challengeDays?.length
-    let challengeDayindex = 0
-    challengeDays?.forEach((day) => {
-        if (day.isCompleted) {
-            challengeDayindex++
-            progressBarValueNow = daysLength * challengeDayindex
-        }
-    })
+
+    const isCompletedDaysArray = challengeDays?.filter(day => day.isCompleted)
+    progressBarValueNow = daysLength * isCompletedDaysArray.length
 
     return {progressBarValueNow}
 }
