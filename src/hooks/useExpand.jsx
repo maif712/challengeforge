@@ -9,8 +9,13 @@ export default function useExpand() {
         setIsExpand(prev => !prev)
     }
 
+    const handleSetIsExpandToFalse = () => {
+        setIsExpand(false)
+    }
+
     return {
         isExpand, 
-        handleIsExpand
+        handleIsExpand,
+        handleSetIsExpandToFalse
     }
 }

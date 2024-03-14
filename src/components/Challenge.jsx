@@ -3,6 +3,9 @@ import useProgressBar from "../hooks/useProgessBar"
 import DaysList from "./DaysList"
 import DeleteOneChallengeModal from "./DeleteOneChallengeModal"
 import ProgressBar from "./ProgressBar"
+import UpdateForm from "./UpdateForm"
+import useUpdateForm from "../hooks/useUpdateForm"
+import Mask from "./Mask"
 
 
 export default function Challenge({index, id, title, challengeDays, handleOpenDeleteOneChallengeModal }) {
@@ -10,14 +13,19 @@ export default function Challenge({index, id, title, challengeDays, handleOpenDe
     const {
         isExpand,
         handleIsExpand,
+        handleSetIsExpandToFalse
     } = useExpand()
 
     const {progressBarValueNow} = useProgressBar(challengeDays)
 
+    const {isUpdateForm, handleSetIsUpdateForm, handleCloseUpdateForm} = useUpdateForm()
+
     return (
-        <div className="border py-5 px-3 shadow-md dark:bg-chagllenge-bg-dark dark:border-[#111519]">
-            <div className="flex items-center mb-5 justify-between">
+        <div className="relative border py-5 px-3 shadow-md dark:bg-chagllenge-bg-dark dark:border-[#111519]">
+            {isUpdateForm && <Mask />}
+            <div className="relative flex items-center mb-5 justify-between">
                 <h2 className="challenge-title relative uppercase tracking-wider font-semibold py-3 mr-8 dark:text-dark-text-secondry">{title}</h2>
+                {isUpdateForm && <UpdateForm id={id} title={title} handleSetIsExpandToFalse={handleSetIsExpandToFalse} handleCloseUpdateForm={handleCloseUpdateForm}/>}
                 <div className="relative">
                     <button onClick={handleIsExpand} className="flex justify-center items-center dark:text-white/70">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -26,7 +34,7 @@ export default function Challenge({index, id, title, challengeDays, handleOpenDe
                     </button>
                     <div className="absolute bg-[#333945] rounded-sm text-white shadow-sm z-10 right-0 top-full translate-y-6 invisible opacity-0 py-3 flex flex-col justify-start gap-3  transition-all duration-300 aria-expanded:translate-y-2 aria-expanded:opacity-100 aria-expanded:visible" aria-expanded={`${isExpand ? "true" : "false"}`}>
                         <button onClick={() => handleOpenDeleteOneChallengeModal(index)} className="px-10 py-2 text-lef">Delete</button>
-                        <button className="px-10 py-2 text-lef">Edit</button>
+                        <button onClick={handleSetIsUpdateForm} className="px-10 py-2 text-lef">Edit</button>
                         <div className="absolute w-2 aspect-square bg-[#333945] right-2 -top-1 rotate-45"></div>
                     </div>
                 </div>

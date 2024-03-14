@@ -4,6 +4,7 @@ import useDarkTheme from "./hooks/useDarkThem";
 import useSticky from "./hooks/useSticky";
 import useGoTopBtn from "./hooks/useGoTopBtn";
 import useExpand from "./hooks/useExpand";
+import useUpdateForm from "./hooks/useUpdateForm";
 
 
 const AppContext = createContext(null)
@@ -21,7 +22,7 @@ export function AppContextProvider({ children }) {
 
     const [nowDate, setNowDate] = useState(new Date())
 
-    // Modal
+    // Modals
     const modalRef = useRef()
     const deleteModalRef = useRef()
     // const deleteOneChallengeModalRef = useRef(challenges.map(() => createRef()))
@@ -125,6 +126,10 @@ export function AppContextProvider({ children }) {
     const { isExpand, handleIsExpand } = useExpand()
     // 
 
+    // Update Form custom hook
+    const {isUpdateForm, handleSetIsUpdateForm, handleCloseUpdateForm} = useUpdateForm()
+    // 
+
     useEffect(() => {
         localStorage.setItem("DAYS", JSON.stringify(challenges))
     }, [challenges])
@@ -206,6 +211,23 @@ export function AppContextProvider({ children }) {
         setChallenges(newArray)
     }
 
+    const handleUpdateChallenge = (e, id, newTitle) => {
+        e.preventDefault()
+        const newArray = challenges.map(challenge => {
+            if(challenge.id == id) {
+                return {...challenge, title: newTitle}
+            }
+            else {
+                return challenge
+            }
+        })
+
+        setChallenges(newArray)
+
+        // we add this line the set select input to the challenge that we edited
+        challengesListInput == "all" ? setChallengesListInput("all") : setChallengesListInput(newTitle)
+    }
+
 
     const values = {
         challenges,
@@ -214,6 +236,7 @@ export function AppContextProvider({ children }) {
         handleResetDays,
         handleMakeChallenge,
         handleDeleteChallenge,
+        handleUpdateChallenge,
 
         challengesTitle,
         challengesListInput,
@@ -249,7 +272,12 @@ export function AppContextProvider({ children }) {
 
         // Expand
         isExpand,
-        handleIsExpand
+        handleIsExpand,
+
+        // Update form
+        isUpdateForm,
+        handleSetIsUpdateForm,
+        handleCloseUpdateForm
     }
 
     return (
