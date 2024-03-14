@@ -1,6 +1,8 @@
 import useExpand from "../hooks/useExpand"
+import useProgressBar from "../hooks/useProgessBar"
 import DaysList from "./DaysList"
 import DeleteOneChallengeModal from "./DeleteOneChallengeModal"
+import ProgressBar from "./ProgressBar"
 
 
 export default function Challenge({index, id, title, challengeDays, handleOpenDeleteOneChallengeModal }) {
@@ -9,6 +11,8 @@ export default function Challenge({index, id, title, challengeDays, handleOpenDe
         isExpand,
         handleIsExpand,
     } = useExpand()
+
+    const {progressBarValueNow} = useProgressBar(challengeDays)
 
     return (
         <div className="border py-5 px-3 shadow-md dark:bg-chagllenge-bg-dark dark:border-[#111519]">
@@ -25,6 +29,9 @@ export default function Challenge({index, id, title, challengeDays, handleOpenDe
                         <button className="px-10 py-2 text-lef">Edit</button>
                     </div>
                 </div>
+            </div>
+            <div className="my-5">
+                <ProgressBar value={progressBarValueNow} />
             </div>
             <DaysList challengeDays={challengeDays} challengeId={id} />
             <DeleteOneChallengeModal index={index} challengeId={id} title={title} />

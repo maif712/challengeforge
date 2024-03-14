@@ -40,6 +40,14 @@
         @apply w-1/2 h-[3px] absolute content-[''] bg-[#b80000] -bottom-[2px] right-0
     }
 
+    .progress {
+        @apply relative w-28 aspect-square mx-auto rounded-full shadow-sm 
+    }
+
+    .progress::after {
+        @apply absolute content-[attr(aria-valuenow)_"%"] bg-white inset-2 rounded-full grid place-items-center font-mono text-2xl font-semibold shadow-inner dark:bg-[#1d1d1d] dark:text-dark-text-secondry
+    }
+
 }
 
 .active-error {
