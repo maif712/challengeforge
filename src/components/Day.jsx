@@ -21,7 +21,7 @@ export default function Day({ id, title, date, isCompleted, handleIsCompleted, n
 
 
     return (
-        <div className={`day-card group relative border-2 border-dashed shadow-md p-4 transition betterhover:hover:!border-[#00bbd4] betterhover:hover:bg-[#00bbd423] dark:border-border-secondry ${!isCompleted && getMissedDay() ? "missed-day" : ""} ${isCompleted ? "bg-[#00bbd423] !border-[#00bbd4]" : ""} ${getToday() ? "active" : ""}`}>
+        <div className={`day-card group relative border-2 border-dashed shadow-md p-4 transition scroll-pt-[1rem] betterhover:hover:!border-[#00bbd4] betterhover:hover:bg-[#00bbd423] dark:border-border-secondry ${!isCompleted && getMissedDay() ? "missed-day" : ""} ${isCompleted ? "bg-[#00bbd423] !border-[#00bbd4]" : ""} ${getToday() ? "active current-day" : ""}`}>
             <div className="flex items-center gap-5 mb-4">
                 <input checked={isCompleted} onChange={() => handleIsCompleted(challengeId, id)} className="appearance-none rounded-full transition-all w-5 h-5 outline outline-gray-100 outline-offset-[6px] checked:bg-[#00a8f4] checked:outline-[#00a8f4] betterhover:group-hover:outline-[#00a8f4] dark:outline-border-secondry" type="checkbox" id={id} />
                 <label className="uppercase text-lg font-semibold cursor-pointer dark:text-dark-text-secondry" htmlFor={id}>{title}</label>

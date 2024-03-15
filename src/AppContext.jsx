@@ -22,6 +22,29 @@ export function AppContextProvider({ children }) {
 
     const [nowDate, setNowDate] = useState(new Date())
 
+
+    // set scroll postion to the current day top postion
+    useEffect(() => {
+
+        // remove the last scroll position
+        window.history.scrollRestoration = 'manual'
+
+        const windowQuerry = window.matchMedia("(max-width: 600px)")
+        const currentDayCard = document.querySelector(".current-day")
+        const DayCardTopPosition = currentDayCard?.getBoundingClientRect().top
+
+        if (windowQuerry.matches) {
+
+            window.scrollTo({
+                top: DayCardTopPosition - 110,
+                left: 0,
+                behavior: "smooth"
+            })
+        }
+
+    }, [])
+    // End
+
     // Modals
     const modalRef = useRef()
     const deleteModalRef = useRef()
@@ -127,7 +150,7 @@ export function AppContextProvider({ children }) {
     // 
 
     // Update Form custom hook
-    const {isUpdateForm, handleSetIsUpdateForm, handleCloseUpdateForm} = useUpdateForm()
+    const { isUpdateForm, handleSetIsUpdateForm, handleCloseUpdateForm } = useUpdateForm()
     // 
 
     useEffect(() => {
@@ -214,8 +237,8 @@ export function AppContextProvider({ children }) {
     const handleUpdateChallenge = (e, id, newTitle) => {
         e.preventDefault()
         const newArray = challenges.map(challenge => {
-            if(challenge.id == id) {
-                return {...challenge, title: newTitle}
+            if (challenge.id == id) {
+                return { ...challenge, title: newTitle }
             }
             else {
                 return challenge

@@ -12,10 +12,21 @@
         @apply flex flex-col h-screen relative
     }
 
+    html {
+        /* scroll-snap-type: y mandatory;
+        scroll-padding: 10em; */
+        /* @apply scroll-smooth */
+    }
+
+    /* .current-day {
+        scroll-snap-align: start;
+    } */
+    
     .layout-wrapper {
         @apply mx-auto max-w-[1440px] px-4
     }
 
+    
     .day-card.active::after {
         @apply absolute top-0 right-0 h-full w-20 bg-cyan-300 text-slate-800 content-['TODAY'] flex justify-center items-center font-bold tracking-wider
     }

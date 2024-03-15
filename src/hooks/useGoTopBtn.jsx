@@ -41,6 +41,9 @@ export default function useGoTopBtn() {
             }
         }
         requestAnimationFrame(animateScroll)
+
+        // Chrome enable the smooth scroll effect, set the Html calss to scroll-bhavior: smooth
+        // window.scrollTo(0, 0)
     }
 
     return { isShowBtn, handleScrollToTopClick }
