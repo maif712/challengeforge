@@ -33,14 +33,18 @@ export function AppContextProvider({ children }) {
         const currentDayCard = document.querySelector(".current-day")
         const DayCardTopPosition = currentDayCard?.getBoundingClientRect().top
 
-        if (windowQuerry.matches) {
+        const myTimeout = setTimeout(() => {
+            if (windowQuerry.matches) {
 
-            window.scrollTo({
-                top: DayCardTopPosition - 110,
-                left: 0,
-                behavior: "smooth"
-            })
-        }
+                window.scrollTo({
+                    top: DayCardTopPosition - 110,
+                    left: 0,
+                    behavior: "smooth"
+                })
+            }
+        }, 1000);
+
+        return () => clearTimeout(myTimeout)
 
     }, [])
     // End
